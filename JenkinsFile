@@ -2,24 +2,30 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Clone Repository') {
             steps {
-                echo 'Building...'
+                checkout scm
+            }
+        }
+
+        stage('Compile Java Program') {
+            steps {
+                // Compile the Java file
                 sh 'javac program.java'
             }
         }
-        stage('Test') {
-            steps {
-                echo 'Testing...'
-                sh 'java program'
-            }
-        }
-    }
 
-    post {
-        always {
-            echo 'Cleaning up...'
-            sh 'rm -f *.class'
+        stage('Run Java Program') {
+            steps {
+                // Run with echo input using a here-document
+                sh '''
+                java program <<EOF
+10
+5
++
+EOF
+                '''
+            }
         }
     }
 }
