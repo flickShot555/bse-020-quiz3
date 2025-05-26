@@ -11,14 +11,14 @@ pipeline {
         stage('Compile Java Program') {
             steps {
                 // Compile the Java file
-                sh 'javac program.java'
+                bat 'javac program.java'
             }
         }
 
         stage('Run Java Program') {
             steps {
                 // Run with echo input using a here-document
-                sh '''
+                bat '''
                 java program <<EOF
 10
 5
