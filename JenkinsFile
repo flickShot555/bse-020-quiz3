@@ -1,0 +1,25 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building...'
+                sh 'javac program.java'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing...'
+                sh 'java program'
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Cleaning up...'
+            sh 'rm -f *.class'
+        }
+    }
+}
